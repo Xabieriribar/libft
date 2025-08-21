@@ -71,6 +71,4 @@ fclean:		clean
 
 re:		fclean all
 
-test: bonus main.c
-	$(CC) $(CFLAGS) main.c -L. -lft -o test_libft && ./test_libft
 .PHONY:		all clean fclean re bonus
