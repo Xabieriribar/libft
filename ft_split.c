@@ -6,7 +6,7 @@
 /*   By: xiribar <xabieriribarrevuelta@gmail.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 16:59:50 by xiribar           #+#    #+#             */
-/*   Updated: 2025/08/21 11:40:54 by xiribar          ###   ########.fr       */
+/*   Updated: 2025/09/18 17:54:54 by xiribar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,15 @@ char	**ft_split(const char *s, char c)
 	if (!arr)
 		return (NULL);
 	index = 0;
-	while (*s != '\0' && index < ft_in_word(s, c))
+	while (*s != '\0' || index < ft_in_word(s, c))
 	{
 		while (*s == c)
 			s++;
 		len = 0;
 		while (s[len] != '\0' && s[len] != c)
 			len++;
+		if (*s == '\0')
+			break ;
 		arr[index] = ft_substr(s, 0, len);
 		if (!arr[index])
 			return (ft_free_split(arr, index), (char **) NULL);

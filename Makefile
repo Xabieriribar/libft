@@ -57,8 +57,8 @@ all:		$(NAME)
 $(NAME):	$(OBJS)
 	$(AR) $(NAME) $(OBJS)
 
-bonus:		$(OBJS) $(OBJS_BONUS)
-	$(AR) $(NAME) $(OBJS) $(OBJS_BONUS)
+bonus:	all $(OBJS_BONUS)
+	$(AR) $(NAME) $(OBJS_BONUS)
 
 %.o:		%.c
 	$(CC) $(CFLAGS) -I . -c $< -o $@
@@ -69,9 +69,11 @@ clean:
 fclean:		clean
 	$(RM) $(NAME)
 
-so:
-	$(CC) -nostartfiles -fPIC $(CFLAGS) $(SRCS)
-	gcc -nostartfiles -shared -o libft.so $(OBJS)
+SO := libft.so
+
+so: $(OBJS) $(OBJS_BONUS)
+	$(CC) -shared -o $(SO) $^
+
 
 re:		fclean all
 
