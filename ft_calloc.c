@@ -6,7 +6,7 @@
 /*   By: xiribar <xabieriribarrevuelta@gmail.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 15:55:48 by xiribar           #+#    #+#             */
-/*   Updated: 2025/08/20 16:29:44 by xiribar          ###   ########.fr       */
+/*   Updated: 2025/09/18 16:55:12 by xiribar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	size_t	len;
 	void	*bytes;
 
-	len = nmemb + size;
-	bytes = malloc(len);
+	bytes = (void *)malloc(nmemb * size);
 	if (!bytes)
 		return (NULL);
-	ft_bzero(bytes, len);
+	ft_bzero(bytes, nmemb * size);
 	return (bytes);
 }

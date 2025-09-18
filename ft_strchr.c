@@ -6,7 +6,7 @@
 /*   By: xiribar <xabieriribarrevuelta@gmail.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 16:59:50 by xiribar           #+#    #+#             */
-/*   Updated: 2025/08/20 17:14:24 by xiribar          ###   ########.fr       */
+/*   Updated: 2025/09/18 16:46:04 by xiribar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,16 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	size_t				len;
-	size_t				index;
-	const unsigned char	*string;
-	unsigned char		character;
+	int				index;
 
-	character = (unsigned char)c;
-	string = (const unsigned char *)s;
 	index = 0;
-	len = ft_strlen(s);
-	while (index < len)
+	while (s[index])
 	{
-		if (character == string[index])
-			return (s + index);
+		if (s[index] == c)
+			return ((char *)s + index);
 		index++;
 	}
+	if (s[index] == c)
+		return ((char *)s + index);
 	return (NULL);
 }

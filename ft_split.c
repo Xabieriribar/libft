@@ -6,7 +6,7 @@
 /*   By: xiribar <xabieriribarrevuelta@gmail.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 16:59:50 by xiribar           #+#    #+#             */
-/*   Updated: 2025/08/20 17:12:27 by xiribar          ###   ########.fr       */
+/*   Updated: 2025/08/21 11:40:54 by xiribar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	**ft_split(const char *s, char c)
 
 	if (!s)
 		return (NULL);
-	arr = malloc((ft_in_word(s, c)) + 1) * (sizeof(char *)));
+	arr = malloc(((ft_in_word(s, c)) + 1) * (sizeof(char *)));
 	if (!arr)
 		return (NULL);
 	index = 0;

@@ -1,5 +1,5 @@
 NAME		=	libft.a
-CC			=	cc
+CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror -g
 AR			=	ar rcs
 RM			=	rm -f
@@ -68,6 +68,10 @@ clean:
 
 fclean:		clean
 	$(RM) $(NAME)
+
+so:
+	$(CC) -nostartfiles -fPIC $(CFLAGS) $(SRCS)
+	gcc -nostartfiles -shared -o libft.so $(OBJS)
 
 re:		fclean all
 
