@@ -1,60 +1,70 @@
-# normfix — formatea y verifica (best‑effort) la Norm de 42
+# Libft
 
-**Qué hace**  
-- Aplica un formateo base con `clang-format` (.clang-format incluido) para acercarse al look&feel de la Norm: llaves estilo Allman, tabulaciones reales de 4, límite de 80 columnas, alineación de punteros pegada al nombre, etc.
-- Luego pasa un *fixer* en Python que arregla detalles que `clang-format` no toca (por ejemplo `return (expr);`) y marca infracciones que no se pueden arreglar de forma segura (p.ej. funciones > 25 líneas, demasiados parámetros, uso de `for`/`switch`/ternario).
+Libft is my first reusable C library from the 42 Lausanne Common Core. It reimplements a focused set of standard C library functions and adds utilities for strings, memory, output and linked lists.
 
-**Limitaciones**  
-No es magia: hay reglas imposibles de corregir automáticamente sin romper la semántica (dividir funciones largas, sustituir ternarios por `if`, re‑estructurar VLAs, etc.). Para esas, el script te deja avisos en consola.
+The project is designed to be linked into later C projects, giving me direct control over the behavior, allocation and error handling of the functions I use.
 
-## Requisitos
-- Python 3.10+
-- `clang-format` en tu PATH (opcional pero recomendado). En Linux/Mac suele venir como `clang-format`; en Windows puedes instalarlo con LLVM. Si no está, el script seguirá pero solo hará los fixes propios.
+## Included functionality
 
-## Uso
-```bash
-# 1) Descomprime el ZIP en la raíz de tu repo o en cualquier carpeta
-# 2) Desde ahí, ejecuta (reemplaza 'src' por la carpeta de tus .c/.h):
-python normfix.py src
+### Character and conversion
 
-# Modo verificación (no escribe archivos, solo reporta)
-python normfix.py src --check
+- ft_isalpha, ft_isdigit, ft_isalnum, ft_isascii and ft_isprint
+- ft_toupper and ft_tolower
+- ft_atoi and ft_itoa
 
-# Re-escribir todos los .c/.h in-place
-python normfix.py src --write
+### Memory
 
-# Elegir extensión
-python normfix.py src --ext .c .h
-```
+- ft_memset, ft_bzero, ft_memcpy and ft_memmove
+- ft_memchr, ft_memcmp and ft_calloc
 
-El script aplica `.clang-format` de este directorio. Si ya tenías uno, compáralos.
+### Strings
 
-## Qué corrige automáticamente (best‑effort)
-- Indentación con tabulaciones reales (convierte sangrías iniciales de 4 espacios a `\t`).
-- Llaves en línea propia (delegado a `clang-format`).
-- Límite de 80 columnas (delegado a `clang-format`).
-- `return expr;` → `return (expr);` sin tocar `return ;` ni `return (expr);` existentes.
-- `char * str` → `char *str` (asterisco pegado al nombre del puntero).
-- Un (y solo un) espacio tras comas y punto y coma (normalizado por `clang-format`).
-- Una línea en blanco entre funciones; no más de una línea en blanco consecutiva.
-- Evita espacios finales y líneas en blanco al final de archivo.
+- ft_strlen, ft_strlcpy and ft_strlcat
+- ft_strchr, ft_strrchr, ft_strncmp and ft_strnstr
+- ft_strdup, ft_substr, ft_strjoin, ft_strtrim and ft_split
+- ft_strmapi and ft_striteri
 
-## Qué **marca** pero no repara
-- Funciones con > 25 líneas (sin contar las llaves).
-- Más de 4 parámetros en una función.
-- > 5 variables declaradas por función.
-- Comentarios dentro del cuerpo de función (te señala líneas sospechosas).
-- Uso de `for`, `do...while`, `switch/case`, `goto`, operador ternario `? :`, VLAs.
-- Más de 5 *definiciones* de función en un `.c`.
-- Ficheros que no compilan (no se comprueba automáticamente, pero puedes integrar tu build en un hook).
+### File-descriptor output
 
-## Integración como comando
-Puedes crear un alias o añadirlo a un *pre-commit hook*:
-```bash
-# Linux/Mac
-echo 'python "$(git rev-parse --show-toplevel)/normfix.py" src --write' > .git/hooks/pre-commit
-chmod +x .git/hooks/pre-commit
-```
+- ft_putchar_fd
+- ft_putstr_fd
+- ft_putendl_fd
+- ft_putnbr_fd
 
-## Nota
-Este proyecto pretende ayudarte a acelerar el 80% del trabajo mecánico. Las últimas reglas subjetivas tendrás que ajustarlas a mano durante la revisión.
+### Linked lists
+
+- ft_lstnew
+- ft_lstadd_front and ft_lstadd_back
+- ft_lstsize and ft_lstlast
+- ft_lstdelone and ft_lstclear
+- ft_lstiter and ft_lstmap
+
+## Build
+
+~~~bash
+make
+~~~
+
+Build the linked-list bonus:
+
+~~~bash
+make bonus
+~~~
+
+The result is a static library named libft.a.
+
+Cleanup targets:
+
+~~~bash
+make clean
+make fclean
+make re
+~~~
+
+## What this project demonstrates
+
+- Manual memory management in C
+- Defensive handling of null pointers and allocation failures
+- Reimplementation of familiar APIs from their contracts
+- Building and linking a static library with Make
+- Consistent naming, headers and code organization under the 42 Norm
